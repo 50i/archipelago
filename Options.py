@@ -9,6 +9,7 @@ import random
 import typing
 from copy import deepcopy
 from dataclasses import dataclass
+from enum import IntFlag
 
 from schema import And, Optional, Or, Schema
 
@@ -21,6 +22,21 @@ if typing.TYPE_CHECKING:
     from BaseClasses import PlandoOptions
     from worlds.AutoWorld import World
     import pathlib
+
+
+@dataclass
+class OptionGroup:
+    name: str
+    options: typing.List[typing.Type["Option"]]
+    start_collapsed: bool = True
+
+
+class Visibility(IntFlag):
+    none = 0
+    template = 1
+    simple_ui = 2
+    complex_ui = 4
+    all = template | simple_ui | complex_ui
 
 
 class AssembleOptions(abc.ABCMeta):
@@ -928,6 +944,7 @@ class Accessibility(Choice):
     option_locations = 0
     option_items = 1
     option_minimal = 2
+    alias_full = 0
     alias_none = 2
     default = 1
 

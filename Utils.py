@@ -50,7 +50,7 @@ class Version(typing.NamedTuple):
         return ".".join(str(item) for item in self)
 
 
-__version__ = "0.4.5"
+__version__ = "0.6.3"
 version_tuple = tuplize_version(__version__)
 
 is_linux = sys.platform.startswith("linux")
@@ -988,7 +988,7 @@ def get_script_path() -> str:
     cwd = os.getcwd().replace('\\', '/')
     exec_cmd_arg = sys.argv[0]
     exec_cmd_arg = exec_cmd_arg.replace('\\', '/')  # Replace windows slashes with real slashes
-    relative_exec_path = exec_cmd_arg.removeprefix(cwd)
+    relative_exec_path = exec_cmd_arg[len(cwd):] if exec_cmd_arg.startswith(cwd) else exec_cmd_arg
     return relative_exec_path
 
 

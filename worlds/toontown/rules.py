@@ -1,12 +1,14 @@
+from __future__ import annotations
+
 from enum import Enum, auto
 
 
 class Rule(Enum):
     ### Street Access ###
 
+    SillyStreet    = auto()  # TTC => DG
     LoopyLane      = auto()  # TTC => MML
     PunchlinePlace = auto()  # TTC => DD
-    SillyStreet    = auto()  # TTC => DG
     BarnacleBoulevard = auto()  # DD => TTC
     SeaweedStreet     = auto()  # DD => DG
     LighthouseLane    = auto()  # DD => TB
@@ -17,11 +19,14 @@ class Rule(Enum):
     AltoAvenue        = auto()  # MML => TTC
     BaritoneBoulevard = auto()  # MML => TB
     TenorTerrace      = auto()  # MML => DDL
-    SleetStreet = auto()  # TB => MML
     WalrusWay   = auto()  # TB => DD
+    SleetStreet = auto()  # TB => MML
     PolarPlace  = auto()  # TB => LBHQ
     LullabyLane = auto()  # DDL => MML
     PajamaPlace = auto()  # DDL => CBHQ
+
+    TunnelCanBeUsed = auto()
+    HasTeleportAccess = auto()
 
     ### Playground Accessibility ###
 
@@ -53,20 +58,104 @@ class Rule(Enum):
     HasTBHQAccess  = auto()
     HasDDLHQAccess = auto()
 
+    ### Joke Access ###
+
+    HasTTCBook = auto()
+    HasDDBook  = auto()
+    HasDGBook  = auto()
+    HasMMLBook = auto()
+    HasTBBook  = auto()
+    HasDDLBook = auto()
+
+    ### Building Access ###
+
+    OneStory      = auto()
+    TwoStory      = auto()
+    ThreeStory    = auto()
+    FourStory     = auto()
+    FiveStory     = auto()
+
     ### Cog Tier Access ###
 
     TierOneCogs   = auto()
     TierTwoCogs   = auto()
     TierThreeCogs = auto()
-    TierFourCogs  = auto()
-    TierFiveCogs  = auto()
-    TierSixCogs   = auto()
+
+    TierFourSellbot  = auto()
+    TierFourCashbot = auto()
+    TierFourLawbot = auto()
+    TierFourBossbot = auto()
+    TierFourCogs = auto()
+
+    TierFiveSellbot = auto()
+    TierFiveCashbot = auto()
+    TierFiveLawbot = auto()
+    TierFiveBossbot = auto()
+    TierFiveCogs = auto()
+
+    TierSixSellbot = auto()
+    TierSixCashbot = auto()
+    TierSixLawbot = auto()
+    TierSixBossbot = auto()
+    TierSixCogs = auto()
+
     TierSevenCogs = auto()
 
     TierEightSellbot = auto()
     TierEightCashbot = auto()
     TierEightLawbot  = auto()
     TierEightBossbot = auto()
+    TierEightCogs = auto()
+
+    LevelOneCogs = auto()
+    LevelTwoCogs = auto()
+    LevelThreeCogs = auto()
+    LevelFourCogs = auto()
+    LevelFiveCogs = auto()
+    LevelSixCogs = auto()
+    LevelSevenCogs = auto()
+    LevelEightCogs = auto()
+    LevelNineCogs = auto()
+    LevelTenCogs = auto()
+    LevelElevenCogs = auto()
+    LevelTwelveCogs = auto()
+    LevelThirteenCogs = auto()
+    LevelFourteenCogs = auto()
+
+    CanMaxTierOneSellbot = auto()
+    CanMaxTierOneCashbot = auto()
+    CanMaxTierOneLawbot = auto()
+    CanMaxTierOneBossbot = auto()
+
+    CanMaxTierTwoSellbot = auto()
+    CanMaxTierTwoCashbot = auto()
+    CanMaxTierTwoLawbot = auto()
+    CanMaxTierTwoBossbot = auto()
+
+    CanMaxTierThreeSellbot = auto()
+    CanMaxTierThreeCashbot = auto()
+    CanMaxTierThreeLawbot = auto()
+    CanMaxTierThreeBossbot = auto()
+
+    CanMaxTierFourSellbot = auto()
+    CanMaxTierFourCashbot = auto()
+    CanMaxTierFourLawbot = auto()
+    CanMaxTierFourBossbot = auto()
+
+    CanMaxTierFiveSellbot = auto()
+    CanMaxTierFiveCashbot = auto()
+    CanMaxTierFiveLawbot = auto()
+    CanMaxTierFiveBossbot = auto()
+
+    CanMaxTierSixSellbot = auto()
+    CanMaxTierSixCashbot = auto()
+    CanMaxTierSixLawbot = auto()
+    CanMaxTierSixBossbot = auto()
+
+    CanMaxTierEightSellbot = auto()
+    CanMaxTierEightCashbot = auto()
+    CanMaxTierEightLawbot = auto()
+    CanMaxTierEightBossbot = auto()
 
     ### Facility Keys ###
 
@@ -86,12 +175,35 @@ class Rule(Enum):
     MiddleTwoKey = auto()
     BackThreeKey = auto()
 
+    CanAnyFacility = auto()
+
+    ### Laff Logic ###
+
+    Has20PercentMax = auto()
+    Has40PercentMax = auto()
+    Has60PercentMax = auto()
+    Has80PercentMax = auto()
+
+    ### Activities ###
+
+    Racing  = auto()
+    Golfing = auto()
+
     ### Cog Disguises ###
 
     SellbotDisguise = auto()
     CashbotDisguise = auto()
     LawbotDisguise  = auto()
     BossbotDisguise = auto()
+
+    ### Doodles ###
+
+    CanBuyTTCDoodle = auto()
+    CanBuyDDDoodle = auto()
+    CanBuyDGDoodle = auto()
+    CanBuyMMLDoodle = auto()
+    CanBuyTBDoodle = auto()
+    CanBuyDDLDoodle = auto()
 
     ### Gag Rules ###
 
@@ -173,7 +285,16 @@ class Rule(Enum):
     CanFightCJ  = auto()
     CanFightCEO = auto()
 
+    ### WIN CONDITION ###
+
     AllBossesDefeated = auto()
+    AllFishCaught = auto()
+    TaskedAllHoods = auto()
+    GainedEnoughLaff = auto()
+    MaxedAllGags = auto()
+    CanReachBounties = auto()
+
+    CanWinGame = auto()
 
 
 class ItemRule(Enum):

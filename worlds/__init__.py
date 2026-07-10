@@ -10,7 +10,7 @@ from typing import Dict, List, TypedDict, Optional
 
 try:
     from ..Utils import local_path, user_path, get_script_name, get_script_path
-except ImportError:
+except (ImportError, ValueError):
     from Utils import local_path, user_path, get_script_name, get_script_path
 
 local_folder = os.path.dirname(__file__)

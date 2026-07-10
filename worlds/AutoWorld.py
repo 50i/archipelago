@@ -14,7 +14,7 @@ from typing import (Any, Callable, ClassVar, Dict, FrozenSet, List, Mapping,
 try:
     from ..Options import PerGameCommonOptions
     from ..BaseClasses import CollectionState
-except ImportError:
+except (ImportError, ValueError):
     from Options import PerGameCommonOptions
     from BaseClasses import CollectionState
 
