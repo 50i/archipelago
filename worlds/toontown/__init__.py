@@ -658,16 +658,20 @@ class ToontownWorld(World):
 
     def get_trap_item_name(self):
         trap_weights = {
-            ToontownItemName.EXPOSE_TRAP.value: self.options.expose_weight,
-            ToontownItemName.UBER_TRAP.value: self.options.uber_trap_weight,
-            ToontownItemName.DRIP_TRAP.value: self.options.drip_trap_weight,
-            ToontownItemName.BEAN_TAX_TRAP_750.value: (self.options.bean_tax_weight/3),
-            ToontownItemName.BEAN_TAX_TRAP_1000.value: (self.options.bean_tax_weight/3),
-            ToontownItemName.BEAN_TAX_TRAP_1250.value: (self.options.bean_tax_weight/3),
-            ToontownItemName.GAG_SHUFFLE_TRAP.value: self.options.gag_shuffle_weight,
-            ToontownItemName.TRAP_REFLECT.value: 50,
-            ToontownItemName.DAMAGE_15.value: (self.options.damage_trap_weight/2),
-            ToontownItemName.DAMAGE_25.value: (self.options.damage_trap_weight/2),
+            ToontownItemName.EXPOSE_TRAP.value: self.options.expose_weight * 0.8,
+            ToontownItemName.EXPOSE_BEANS_TRAP.value: self.options.expose_weight * 0.6,
+            ToontownItemName.UBER_TRAP.value: self.options.uber_trap_weight * 0.7,
+            ToontownItemName.DRIP_TRAP.value: self.options.drip_trap_weight * 0.8,
+            ToontownItemName.BEAN_TAX_TRAP_750.value: (self.options.bean_tax_weight * 0.35),
+            ToontownItemName.BEAN_TAX_TRAP_1000.value: (self.options.bean_tax_weight * 0.25),
+            ToontownItemName.BEAN_TAX_TRAP_1250.value: (self.options.bean_tax_weight * 0.15),
+            ToontownItemName.GAG_SHUFFLE_TRAP.value: self.options.gag_shuffle_weight * 0.75,
+            ToontownItemName.GAG_DISABLE_TRAP.value: self.options.gag_shuffle_weight * 0.55,
+            ToontownItemName.TRAP_REFLECT.value: 35,
+            ToontownItemName.RACING_TRAP.value: 20,
+            ToontownItemName.GOLFING_TRAP.value: 20,
+            ToontownItemName.DAMAGE_15.value: (self.options.damage_trap_weight * 0.45),
+            ToontownItemName.DAMAGE_25.value: (self.options.damage_trap_weight * 0.25),
         }
         trap_items = list(trap_weights.keys())
         return random.choices(trap_items, weights=[trap_weights[i] for i in trap_items])[0]
