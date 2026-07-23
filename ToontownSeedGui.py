@@ -121,6 +121,7 @@ class SeedWorker(QObject):
 
     def _write_player_yaml(self, destination: Path, player_name: str) -> None:
         text = self.source_yaml.read_text(encoding="utf-8-sig")
+        text = self._clean_yaml_text(text)
         lines = text.splitlines(keepends=True)
 
         for index, line in enumerate(lines):
@@ -132,6 +133,9 @@ class SeedWorker(QObject):
                 return
 
         raise RuntimeError(f"Could not find a 'name:' line in {self.source_yaml}")
+
+    def _clean_yaml_text(self, text: str) -> str:
+        return re.sub(r"(?m)^(\s*[A-Za-z0-9_-]+\s*:.*?)\s+`\s*$", r"\1", text)
 
     def _run_command(self, command: list[str]) -> None:
         process = subprocess.Popen(
@@ -235,7 +239,7 @@ class SeedGui(QMainWindow):
 
         archipelago_dir = Path(__file__).resolve().parent
         default_python = Path(r"c:\Users\max\AppData\Local\Programs\Python\Python387\python.exe")
-        default_yaml = Path(r"C:\ProgramData\Archipelago\Players\Default.yaml")
+        default_yaml = archipelago_dir.parent / "toontown-archipelago" / "launch" / "windows" / "Default.yaml"
         default_output = archipelago_dir / "output" / "seed_gui"
 
         root = QWidget()

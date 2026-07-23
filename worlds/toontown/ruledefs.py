@@ -7,9 +7,9 @@ from BaseClasses import CollectionState, MultiWorld
 from .consts import XP_RATIO_FOR_GAG_LEVEL, ToontownItem, CAP_RATIO_FOR_GAG_LEVEL, ToontownWinCondition
 from .fish import LOCATION_TO_GENUS_SPECIES, FISH_DICT, FishProgression, FishLocation, get_catchable_fish, \
     LOCATION_TO_GENUS, FISH_ZONE_TO_LICENSE, FishZone, FISH_ZONE_TO_REGION, PlaygroundFishZoneGroups
-from .items import ToontownItemName
+from .items import DISGUISE_PART_ITEMS, DISGUISE_TO_PART_REQUIREMENTS, ITEM_NAME_TO_ID, ToontownItemName
 from .options import ToontownOptions, TPSanity, FacilityLocking, GagTrainingFrameBehavior, \
-    GagTrainingCheckBehavior
+    GagTrainingCheckBehavior, CogSuitItemMode
 from .locations import ToontownLocationDefinition, ToontownLocationName, LOCATION_NAME_TO_ID, FISH_LOCATIONS, \
     get_location_def_from_name
 from .regions import ToontownEntranceDefinition, ToontownRegionName
@@ -91,6 +91,15 @@ def AlwaysTrueRule(state: CollectionState, locentr: LocEntrDef, world: MultiWorl
 @rule(Rule.Golfing,         ToontownItemName.GOLF_PUTTER)
 @rule(Rule.Racing,          ToontownItemName.GO_KART)
 def HasItemRule(state: CollectionState, locentr: LocEntrDef, world: MultiWorld, player: int, options, argument: Tuple = None):
+    if argument and argument[0] in DISGUISE_TO_PART_REQUIREMENTS:
+        use_suit_parts = False
+        if isinstance(options, ToontownOptions):
+            use_suit_parts = options.cog_suit_item_mode.value == CogSuitItemMode.option_suit_parts
+        elif isinstance(options, dict):
+            use_suit_parts = options.get("cog_suit_item_mode", 0) in (CogSuitItemMode.option_suit_parts, "suit_parts")
+        if use_suit_parts:
+            part_item, count = DISGUISE_TO_PART_REQUIREMENTS[argument[0]]
+            return state.has(part_item.value, player, count)
     if len(argument) == 2:
         return state.has(argument[0].value, player, argument[1])
     return state.has(argument[0].value, player)
@@ -1409,15 +1418,13 @@ def CanWinGame(state: CollectionState, locentr: LocEntrDef, world: MultiWorld, p
 
 @rule(ItemRule.RestrictDisguises)
 def RestrictDisguises(item: ToontownItem, locentr: LocEntrDef, world: MultiWorld, player: int, options, argument: Tuple = None):
-    DISGUISE_ITEM_IDS = list(map(
-        lambda name: LOCATION_NAME_TO_ID.get(name),
-        [
-            ToontownItemName.SELLBOT_DISGUISE.value,
-            ToontownItemName.CASHBOT_DISGUISE.value,
-            ToontownItemName.LAWBOT_DISGUISE.value,
-            ToontownItemName.BOSSBOT_DISGUISE.value,
-        ]
-    ))
+    disguise_items = [
+        ToontownItemName.SELLBOT_DISGUISE,
+        ToontownItemName.CASHBOT_DISGUISE,
+        ToontownItemName.LAWBOT_DISGUISE,
+        ToontownItemName.BOSSBOT_DISGUISE,
+    ] + list(DISGUISE_PART_ITEMS)
+    DISGUISE_ITEM_IDS = [ITEM_NAME_TO_ID.get(name.value) for name in disguise_items]
     return item.code not in DISGUISE_ITEM_IDS
 
 

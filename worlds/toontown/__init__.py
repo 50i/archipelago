@@ -9,12 +9,13 @@ import logging
 from . import regions, consts
 from .consts import ToontownItem, ToontownLocation, ToontownWinCondition
 from .items import ITEM_DESCRIPTIONS, ITEM_DEFINITIONS, ToontownItemDefinition, get_item_def_from_id, ToontownItemName, \
-    ITEM_NAME_TO_ID, FISHING_LICENSES, TELEPORT_ACCESS_ITEMS, FACILITY_KEY_ITEMS, get_item_groups, DISGUISE_ITEMS
+    ITEM_NAME_TO_ID, FISHING_LICENSES, TELEPORT_ACCESS_ITEMS, FACILITY_KEY_ITEMS, get_item_groups, DISGUISE_ITEMS, \
+    DISGUISE_PART_COUNTS
 from .locations import LOCATION_DESCRIPTIONS, LOCATION_DEFINITIONS, EVENT_DEFINITIONS, ToontownLocationName, \
     ToontownLocationType, ALL_TASK_LOCATIONS_SPLIT, LOCATION_NAME_TO_ID, ToontownLocationDefinition, \
     TREASURE_LOCATION_TYPES, KNOCK_KNOCK_LOCATION_TYPES, BOSS_LOCATION_TYPES, BOSS_EVENT_DEFINITIONS, get_location_groups
 from .options import ToontownOptions, TPSanity, StartingTaskOption, GagTrainingCheckBehavior, FacilityLocking, toontown_option_groups, \
-    GagTrainingFrameBehavior
+    GagTrainingFrameBehavior, CogSuitItemMode
 from .regions import REGION_DEFINITIONS, ToontownRegionName
 from .ruledefs import test_location, test_entrance, test_item_location
 from .fish import FishProgression, FishChecks
@@ -353,14 +354,21 @@ class ToontownWorld(World):
 
         # Handle Cog Disguise generation
         bosses_condition = "cog-bosses" in self.options.win_condition.value
+        disguise_items = []
+        if self.options.cog_suit_item_mode.value == CogSuitItemMode.option_suit_parts:
+            for itemName, count in DISGUISE_PART_COUNTS.items():
+                disguise_items.extend([itemName] * count)
+        else:
+            disguise_items.extend(DISGUISE_ITEMS)
+
         if not bosses_condition and self.options.checks_per_boss.value == 0:
             # Bosses aren't relevant to the seed, we don't want disguises to be on priority and
             # not progression balanced.
-            for itemName in DISGUISE_ITEMS:
+            for itemName in disguise_items:
                 pool.append(self.create_progression_deprioritized_skip_balancing(itemName.value))
         else:
             # Bosses are relevant to the seed, make them progression as normal
-            for itemName in DISGUISE_ITEMS:
+            for itemName in disguise_items:
                 pool.append(self.create_item(itemName.value))
 
         # Handle facility key generation

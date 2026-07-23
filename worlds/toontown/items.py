@@ -109,6 +109,10 @@ class ToontownItemName(enum.Enum):
     CASHBOT_DISGUISE = "Cashbot Disguise"
     LAWBOT_DISGUISE  = "Lawbot Disguise"
     BOSSBOT_DISGUISE = "Bossbot Disguise"
+    SELLBOT_SUIT_PART = "Sellbot Suit Part"
+    CASHBOT_SUIT_PART = "Cashbot Suit Part"
+    LAWBOT_SUIT_PART  = "Lawbot Suit Part"
+    BOSSBOT_SUIT_PART = "Bossbot Suit Part"
 
     ### Jellybean Bundles ###
     MONEY_150  = "150 Jellybeans"
@@ -321,6 +325,10 @@ ITEM_DEFINITIONS: List[ToontownItemDefinition] = [
     # Keep new definitions at the end so existing Archipelago item IDs remain stable.
     ToontownItemDefinition(ToontownItemName.RACING_TRAP,          ItemClassification.trap),
     ToontownItemDefinition(ToontownItemName.GOLFING_TRAP,         ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.SELLBOT_SUIT_PART,    ItemClassification.progression),
+    ToontownItemDefinition(ToontownItemName.CASHBOT_SUIT_PART,    ItemClassification.progression),
+    ToontownItemDefinition(ToontownItemName.LAWBOT_SUIT_PART,     ItemClassification.progression),
+    ToontownItemDefinition(ToontownItemName.BOSSBOT_SUIT_PART,    ItemClassification.progression),
     # endregion
 ]
 
@@ -329,6 +337,10 @@ ITEM_DESCRIPTIONS = {
     ToontownItemName.CASHBOT_DISGUISE.value: "Grants access to fight the Cashbot CFO",
     ToontownItemName.LAWBOT_DISGUISE.value:  "Grants access to fight the Lawbot CJ",
     ToontownItemName.BOSSBOT_DISGUISE.value: "Grants access to fight the Bossbot CEO",
+    ToontownItemName.SELLBOT_SUIT_PART.value: "One of the 10 parts needed for the Sellbot disguise",
+    ToontownItemName.CASHBOT_SUIT_PART.value: "One of the 12 parts needed for the Cashbot disguise",
+    ToontownItemName.LAWBOT_SUIT_PART.value:  "One of the 14 parts needed for the Lawbot disguise",
+    ToontownItemName.BOSSBOT_SUIT_PART.value: "One of the 17 parts needed for the Bossbot disguise",
     ToontownItemName.VP: "Rewarded for defeating the Sellbot VP", 
     ToontownItemName.CFO: "Rewarded for defeating the Cashbot CFO",
     ToontownItemName.CJ: "Rewarded for defeating the Lawbot CJ", 
@@ -395,6 +407,27 @@ DISGUISE_ITEMS = (
     ToontownItemName.LAWBOT_DISGUISE,
     ToontownItemName.BOSSBOT_DISGUISE
 )
+
+DISGUISE_PART_ITEMS = (
+    ToontownItemName.SELLBOT_SUIT_PART,
+    ToontownItemName.CASHBOT_SUIT_PART,
+    ToontownItemName.LAWBOT_SUIT_PART,
+    ToontownItemName.BOSSBOT_SUIT_PART
+)
+
+DISGUISE_PART_COUNTS = {
+    ToontownItemName.SELLBOT_SUIT_PART: 10,
+    ToontownItemName.CASHBOT_SUIT_PART: 12,
+    ToontownItemName.LAWBOT_SUIT_PART: 14,
+    ToontownItemName.BOSSBOT_SUIT_PART: 17,
+}
+
+DISGUISE_TO_PART_REQUIREMENTS = {
+    ToontownItemName.SELLBOT_DISGUISE: (ToontownItemName.SELLBOT_SUIT_PART, 10),
+    ToontownItemName.CASHBOT_DISGUISE: (ToontownItemName.CASHBOT_SUIT_PART, 12),
+    ToontownItemName.LAWBOT_DISGUISE: (ToontownItemName.LAWBOT_SUIT_PART, 14),
+    ToontownItemName.BOSSBOT_DISGUISE: (ToontownItemName.BOSSBOT_SUIT_PART, 17),
+}
 
 FACILITY_KEY_ITEMS = (
     ToontownItemName.FRONT_FACTORY_ACCESS,
@@ -498,7 +531,11 @@ def get_item_groups():
         ToontownItemName.SELLBOT_DISGUISE,
         ToontownItemName.CASHBOT_DISGUISE,
         ToontownItemName.LAWBOT_DISGUISE,
-        ToontownItemName.BOSSBOT_DISGUISE
+        ToontownItemName.BOSSBOT_DISGUISE,
+        ToontownItemName.SELLBOT_SUIT_PART,
+        ToontownItemName.CASHBOT_SUIT_PART,
+        ToontownItemName.LAWBOT_SUIT_PART,
+        ToontownItemName.BOSSBOT_SUIT_PART
     )
 
     GAG_EXP = (
@@ -533,6 +570,7 @@ def get_item_groups():
 
     ITEM_NAME_GROUPS_OBJECT = {
         "Cog Disguises": COG_DISGUISES,
+        "Cog Suit Parts": DISGUISE_PART_ITEMS,
         "Facility Keys": FACILITY_KEY_ITEMS,
         "Access Keys": TELEPORT_ACCESS_ITEMS,
         "Gag Training Frames": GAG_TRAINING_FRAMES,

@@ -280,6 +280,17 @@ class CogBossesRequired(Range):
     default = 3
 
 
+class CogSuitItemMode(Choice):
+    """
+    Determines whether Cog disguise progression is placed as full suit unlocks or individual suit parts.
+    """
+
+    display_name = "Cog Suit Item Mode"
+    option_full_suits = 0
+    option_suit_parts = 1
+    default = 0
+
+
 class WinConditionTotalTasksWeb(Toggle):
     """Complete a total number of tasks to complete the game (determined by total_tasks_required)."""
     display_name = "Total Tasks"
@@ -988,6 +999,7 @@ class ToontownOptions(PerGameCommonOptions):
     bounties_required: BountiesRequired
     total_bounties: TotalBounties
     hint_bounties: BountiesHinted
+    cog_suit_item_mode: CogSuitItemMode
     tpsanity: TPSanity
     treasures_per_location: TreasuresPerLocation
     jokes_per_street: JokesPerStreet
@@ -1057,7 +1069,7 @@ toontown_option_groups: list[OptionGroup] = [
         WinConditionBountyWeb, BountiesRequired, TotalBounties, BountiesHinted
         ], False),
     OptionGroup("Check/Item Behavior", [
-        TPSanity, TreasuresPerLocation, ChecksPerBoss, GagTrainingCheckBehavior,
+        TPSanity, TreasuresPerLocation, ChecksPerBoss, CogSuitItemMode, GagTrainingCheckBehavior,
         GagTrainingFrameBehavior, LogicalTasksPerPlayground, LogicalMaxedCogGallery,
         MaxedCogGalleryQuota, FacilityLocking, WantCGCMazes, FishChecks, FishLocations,
         FishProgression, FishPity, RacingOption, GolfingOption, SeedGenerationTypeOption,
