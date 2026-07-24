@@ -647,6 +647,16 @@ class ToontownWorld(World):
         else:
             self.multiworld.push_precollected(item)
 
+        glue_remaining = 32
+        while glue_remaining > 0:
+            drop = random.randint(1, min(3, glue_remaining))
+            if drop == 1:
+                pool.append(self.create_item(ToontownItemName.GLUE_STICK.value))
+            elif drop == 2:
+                pool.append(self.create_item(ToontownItemName.GLUE_STICKS_2.value))
+            else:
+                pool.append(self.create_item(ToontownItemName.GLUE_STICKS_3.value))
+            glue_remaining -= drop
 
         # Fill the rest of the room with junk.
         junk: int = len(self.multiworld.get_unfilled_locations(self.player)) - len(pool)
@@ -655,9 +665,10 @@ class ToontownWorld(World):
                             f"Generated with too many items ({-junk}). Please tweak settings.")
 
         trap: int = round(junk * (self.options.trap_percent / 100))
+        self.trap_slot_count = trap
         filler: int = junk - trap
         for i in range(trap):
-            pool.append(self.create_item(self.get_trap_item_name()))
+            pool.append(self.create_item(ToontownItemName.TRAP_SLOT_JUNK.value))
         for i in range(filler):
             pool.append(self.create_item(self.get_filler_item_name()))
 
@@ -667,12 +678,8 @@ class ToontownWorld(World):
     def get_trap_item_name(self):
         trap_weights = {
             ToontownItemName.EXPOSE_TRAP.value: self.options.expose_weight * 0.8,
-            ToontownItemName.EXPOSE_BEANS_TRAP.value: self.options.expose_weight * 0.6,
             ToontownItemName.UBER_TRAP.value: self.options.uber_trap_weight * 0.7,
             ToontownItemName.DRIP_TRAP.value: self.options.drip_trap_weight * 0.8,
-            ToontownItemName.BEAN_TAX_TRAP_750.value: (self.options.bean_tax_weight * 0.35),
-            ToontownItemName.BEAN_TAX_TRAP_1000.value: (self.options.bean_tax_weight * 0.25),
-            ToontownItemName.BEAN_TAX_TRAP_1250.value: (self.options.bean_tax_weight * 0.15),
             ToontownItemName.GAG_SHUFFLE_TRAP.value: self.options.gag_shuffle_weight * 0.75,
             ToontownItemName.GAG_DISABLE_TRAP.value: self.options.gag_shuffle_weight * 0.55,
             ToontownItemName.TRAP_REFLECT.value: 35,
@@ -810,6 +817,7 @@ class ToontownWorld(World):
             "start_gag_xp": self.options.base_global_gag_xp.value,
             "max_gag_xp": self.options.max_global_gag_xp.value,
             "damage_trap_weight": self.options.damage_trap_weight.value,
+            "trap_slot_count": getattr(self, "trap_slot_count", 0),
             "heal_weight": self.options.heal_weight.value,
             "fish_weight": self.options.fish_weight.value,
             "random_prices": self.options.random_prices.value,

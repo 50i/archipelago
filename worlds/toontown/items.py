@@ -132,6 +132,12 @@ class ToontownItemName(enum.Enum):
     ### Bounty Items ###
     BOUNTY = "Bounty"
 
+    ### Skill Tree Items ###
+    GLUE_STICK = "Blue Glue Stick"
+    GLUE_STICKS_2 = "2 Blue Glue Sticks"
+    GLUE_STICKS_3 = "3 Blue Glue Sticks"
+    TRAP_SLOT_JUNK = "Trap Slot Junk"
+
     ### Reward Bundles ###
     SOS_REWARD_3        = "Random 3-Star SOS Card"
     SOS_REWARD_4        = "Random 4-Star SOS Card"
@@ -146,6 +152,7 @@ class ToontownItemName(enum.Enum):
     HEAL_20 = "20% Toon-Up"
 
     ### Traps ###
+    BEAN_TAX_TRAP_500 = "500 Bean Tax"
     UBER_TRAP = "Uber Trap"
     BEAN_TAX_TRAP_750 = "750 Bean Tax"
     BEAN_TAX_TRAP_1000 = "1000 Bean Tax"
@@ -161,6 +168,14 @@ class ToontownItemName(enum.Enum):
     RAID_TRAP = "RAID!"
     DAMAGE_15 = "15% Damage Trap"
     DAMAGE_25 = "25% Damage Trap"
+    SHIELD_BREAKER_TRAP = "Shield Breaker Trap"
+    CASHBOT_UBER_TRAP = "Cashbot Uber Trap"
+    DAMAGE_10 = "10% Damage Trap"
+    FOUR_GAG_UBER_TRAP = "4 Gag Uber Trap"
+    THREE_GAG_UBER_TRAP = "3 Gag Uber Trap"
+    TWO_TRACK_DISABLE_TRAP = "2 Track Disable Trap"
+    SMALL_GAG_SHUFFLE_TRAP = "Small Gag Shuffle Trap"
+    MEDIUM_GAG_SHUFFLE_TRAP = "Medium Gag Shuffle Trap"
 
     ### META ###
     VP = "Defeated Sellbot VP"
@@ -329,6 +344,19 @@ ITEM_DEFINITIONS: List[ToontownItemDefinition] = [
     ToontownItemDefinition(ToontownItemName.CASHBOT_SUIT_PART,    ItemClassification.progression),
     ToontownItemDefinition(ToontownItemName.LAWBOT_SUIT_PART,     ItemClassification.progression),
     ToontownItemDefinition(ToontownItemName.BOSSBOT_SUIT_PART,    ItemClassification.progression),
+    ToontownItemDefinition(ToontownItemName.GLUE_STICK,           ItemClassification.useful),
+    ToontownItemDefinition(ToontownItemName.BEAN_TAX_TRAP_500,    ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.SHIELD_BREAKER_TRAP,   ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.CASHBOT_UBER_TRAP,     ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.DAMAGE_10,             ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.FOUR_GAG_UBER_TRAP,    ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.THREE_GAG_UBER_TRAP,   ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.TWO_TRACK_DISABLE_TRAP, ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.SMALL_GAG_SHUFFLE_TRAP, ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.MEDIUM_GAG_SHUFFLE_TRAP, ItemClassification.trap),
+    ToontownItemDefinition(ToontownItemName.GLUE_STICKS_2,        ItemClassification.useful),
+    ToontownItemDefinition(ToontownItemName.GLUE_STICKS_3,        ItemClassification.useful),
+    ToontownItemDefinition(ToontownItemName.TRAP_SLOT_JUNK,        ItemClassification.filler),
     # endregion
 ]
 
